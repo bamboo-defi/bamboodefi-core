@@ -9,7 +9,8 @@
     "bn.js": "5.1.3",
     "ganache-cli": "6.12.2",
     "truffle": "5.1.62",
-    "truffle-flattener": "1.5.0"
+    "truffle-flattener": "1.5.0",
+    "web3": "^1.3.3"
   },
   "devDependencies": {
     "truffle-plugin-verify": "^0.5.4"
