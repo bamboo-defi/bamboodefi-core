@@ -1,7 +1,7 @@
 const { projectId, mnemonic, etherscanKey } = require('./secrets.json');
 const Web3 = require('web3');
 const web3 = new Web3();
-var HDWalletProvider = require("truffle-hdwallet-provider");
+var HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
   // Uncommenting the defaults below
