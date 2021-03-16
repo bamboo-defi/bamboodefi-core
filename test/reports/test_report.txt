@@ -1,0 +1,613 @@
+Compiling your contracts...
+
+===========================
+
+> Everything is up to date, there is nothing to compile.
+
+Starting migrations...
+
+======================
+
+> Network name:    'development'
+
+> Network id:      1615898495942
+
+> Block gas limit: 6721975 (0x6691b7)
+
+1_initial_migration.js
+
+======================
+
+   Deploying 'Migrations'
+
+   ----------------------
+
+   > transaction hash:    0x15e5767c46e26acbf18dc1896fed809997a4c4dae9d54f3d02101f9d9fd37315
+
+- Blocks: 0            Seconds: 0
+
+   > Blocks: 0            Seconds: 0
+
+   > contract address:    0xB347efa0117Eb4B501Bf477b37197A3cfd8afc55
+
+   > block number:        1
+
+   > block timestamp:     1615898566
+
+   > account:             0x6394f4401AD64D330607a018d669E73327FF79C0
+
+   > balance:             99.99692588
+
+   > gas used:            153706 (0x2586a)
+
+   > gas price:           20 gwei
+
+   > value sent:          0 ETH
+
+   > total cost:          0.00307412 ETH
+
+- Saving migration to chain.
+
+   > Saving migration to chain.
+
+   > Saving artifacts
+
+   -------------------------------------
+
+   > Total cost:          0.00307412 ETH
+
+Summary
+
+=======
+
+> Total deployments:   1
+
+> Final cost:          0.00307412 ETH
+
+web3-shh package will be deprecated in version 1.3.5 and will no longer be supported.
+
+web3-bzz package will be deprecated in version 1.3.5 and will no longer be supported.
+
+Using network 'development'.
+
+Compiling your contracts...
+
+===========================
+
+> Everything is up to date, there is nothing to compile.
+
+web3-shh package will be deprecated in version 1.3.5 and will no longer be supported.
+
+web3-bzz package will be deprecated in version 1.3.5 and will no longer be supported.
+
+  Contract: BambooFarmer
+
+    ✓ should make BAMBOOs successfully (2246ms)
+
+    ✓ should divide the received fees between vault and field (2117ms)
+
+  Contract: BambooField
+
+    ✓ should set correct state variables (409ms)
+
+    ✓ should not allow to buy seeds if not registered and staking (700ms)
+
+    ✓ should not allow withdraw before lockTime (709ms)
+
+    ✓ should work with more than one participant (1398ms)
+
+    ✓ should allow withdraw of deposit (988ms)
+
+    ✓ should allow 60 days of extra buy time if conditions where met (2118ms)
+
+  Contract: BambooToken
+
+    With ZooKeeper active
+
+      ✓ should mint one vote per staking wallet (1235ms)
+
+  Contract: BBYP
+
+    ✓ should set correct state variables (450ms)
+
+    ✓ should allow owner to change variables and start the contract (441ms)
+
+    With the lottery being used
+
+      ✓ should allow to buy tickets by burning bamboo (1788ms)
+
+      ✓ should choose a winner after owner reveals the seed (5447ms)
+
+  Contract: DEX
+
+    ✓ only feeToSetter should be able to create pairs (1790ms)
+
+    ✓ should set the fee at creation (20712ms)
+
+    1) different fees should be calculated correctly
+
+    Events emitted during test:
+
+    ---------------------------
+
+    Ownable.OwnershipTransferred(
+
+      previousOwner: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      newOwner: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      value: 200000000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      to: <indexed> 0x91a736686D577B8e71aF384eCFED06D3BA3dCF8b (type: address),
+
+      value: 100000000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      value: 100000000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      value: 100000000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      value: 100000000 (type: uint256)
+
+    )
+
+    BambooToken.Minted(
+
+      minter: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      receiver: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      mintAmount: 100000000 (type: uint256)
+
+    )
+
+    IUniswapV2Factory.PairCreated(
+
+      token0: <indexed> 0x99a5D3B56a8AF95901884da8eD2245F3ed864d8f (type: address),
+
+      token1: <indexed> 0xaeEAfa758Dd53C028Bf3ecf29859377CBB40B83e (type: address),
+
+      pair: 0x2CDcB4f674157ff6B44F9Aa5dc64bE4be5b6c67F (type: address),
+
+      1 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      spender: <indexed> 0x30BD175567728B64FB28e8C2c4B9dF3947AB18D6 (type: address),
+
+      value: 100000000000 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      spender: <indexed> 0x30BD175567728B64FB28e8C2c4B9dF3947AB18D6 (type: address),
+
+      value: 1000000000000 (type: uint256)
+
+    )
+
+    ---------------------------
+
+  Contract: Migrator
+
+    ✓ should do the migration successfully (5036ms)
+
+    ✓ should allow first minting from public only after migrator is gone (1187ms)
+
+  Contract: Raindrop
+
+    ✓ should set correct state variables (78ms)
+
+    ✓ should allow owner to set variables and start the contract (8029ms)
+
+    With the lottery being used
+
+      ✓ should allow to buy tickets (3969ms)
+
+@openzeppelin/test-helpers WARN advanceBlockTo: Advancing too many blocks is causing this test to be slow.
+
+      ✓ should choose 9 unique winner tickets (35827ms)
+
+      2) should restart the raindrop automatically
+
+    Events emitted during test:
+
+    ---------------------------
+
+    Ownable.OwnershipTransferred(
+
+      previousOwner: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      newOwner: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address)
+
+    )
+
+    Ownable.OwnershipTransferred(
+
+      previousOwner: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      newOwner: <indexed> 0x91a736686D577B8e71aF384eCFED06D3BA3dCF8b (type: address)
+
+    )
+
+    Raindrop.TicketPriceSet(
+
+      price: 500 (type: uint256)
+
+    )
+
+    Raindrop.NewRain(
+
+      nextRain: 1617626788 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 10000 (type: uint256)
+
+    )
+
+    BambooToken.Minted(
+
+      minter: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      receiver: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      mintAmount: 10000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      value: 10000 (type: uint256)
+
+    )
+
+    BambooToken.Minted(
+
+      minter: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      receiver: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      mintAmount: 10000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x0000000000000000000000000000000000000000 (type: address),
+
+      to: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      value: 10000 (type: uint256)
+
+    )
+
+    BambooToken.Minted(
+
+      minter: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      receiver: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      mintAmount: 10000 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      spender: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 10000 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      spender: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 10000 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      spender: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 10000 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      to: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 4500 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      spender: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 5500 (type: uint256)
+
+    )
+
+    Raindrop.TicketsPurchased(
+
+      user: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      ntickets: 9 (type: uint256)
+
+    )
+
+    Raindrop.Commit(
+
+      targetBlock: 161 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x5E622F4A1fEEd53E8F4690E5537871e0fF2ACea5 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      to: <indexed> 0x6394f4401AD64D330607a018d669E73327FF79C0 (type: address),
+
+      value: 450 (type: uint256)
+
+    )
+
+    Raindrop.NewRain(
+
+      nextRain: 1618490790 (type: uint256)
+
+    )
+
+    IERC20.Transfer(
+
+      from: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      to: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 4500 (type: uint256)
+
+    )
+
+    IERC20.Approval(
+
+      owner: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      spender: <indexed> 0xb972849701b1D7138f8E3Ff4774D50FEeFd9D600 (type: address),
+
+      value: 5500 (type: uint256)
+
+    )
+
+    Raindrop.TicketsPurchased(
+
+      user: <indexed> 0x6F2E40b0045986fB9562D5429669f988018ce135 (type: address),
+
+      ntickets: 9 (type: uint256)
+
+    )
+
+    ---------------------------
+
+      ✓ should refund bamboo in case of emergency stop (1063ms)
+
+  Contract: ZooKeeper
+
+    ✓ should set correct state variables (539ms)
+
+    With ERC/LP token added to the field
+
+      ✓ should allow emergency withdraw (577ms)
+
+      ✓ should give out BAMBOOs only after farming time (1911ms)
+
+      ✓ should not distribute BAMBOOs if no one deposit (2682ms)
+
+      ✓ should distribute BAMBOOs properly for each staker (4461ms)
+
+      ✓ should give proper BAMBOOs allocation to each pool (1783ms)
+
+    With BAMBOO tokens added for staking
+
+      ✓ should mint additional bamboos when locked for staking (1009ms)
+
+      ✓ should allow to claim the staking bonuses daily (3189ms)
+
+      ✓ should handle multiple deposits independently (1238ms)
+
+    With BAMBOO tokens to increase yield farming rewards
+
+      ✓ yield farming should have a multiplier if some bamboo is locked (3181ms)
+
+      ✓ should add multiple deposits and determine the closest reward available (4304ms)
+
+  33 passing (4m)
+
+  2 failing
+
+  1) Contract: DEX
+
+       different fees should be calculated correctly:
+
+      AssertionError: expected '0x2CDcB4f674157ff6B44F9Aa5dc64bE4be5b6c67F' to equal '0x4b7866E055204D286D996E2A23C215df9FCbC962'
+
+      + expected - actual
+
+      -0x2CDcB4f674157ff6B44F9Aa5dc64bE4be5b6c67F
+
+      +0x4b7866E055204D286D996E2A23C215df9FCbC962
+
+      
+
+      at Context.it (test/Dex.test.js:50:16)
+
+      at process._tickCallback (internal/process/next_tick.js:68:7)
+
+  2) Contract: Raindrop
+
+       With the lottery being used
+
+         should restart the raindrop automatically:
+
+     Error: Returned error: VM Exception while processing transaction: revert commit: period of buying tickets still up! -- Reason given: commit: period of buying tickets still up!.
+
+      at Context.it (test/Raindrop.test.js:106:32)
+
+      at process._tickCallback (internal/process/next_tick.js:68:7)
