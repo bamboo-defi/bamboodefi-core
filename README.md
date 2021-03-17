@@ -30,11 +30,11 @@ To launch the tests you must follow two steps:
     <strong>truffle test</strong>
     </li>
 </ol>
-You can see the last report [here].
+
+You can access to the last report [here](https://github.com/bamboo-defi/bamboodefi-core/blob/master/test/reports/test_report.txt).
 
 ## License
 
 MIT License
 
 
-[here]: https://github.com/bamboo-defi/bamboodefi-core/blob/master/test/reports
