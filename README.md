@@ -15,6 +15,26 @@ https://bamboodefi.com.
 - BambooField - https://etherscan.io/address/0xceacbbcce1e0d105343667e1bb40dcfbec7b3aac#code
 - BambooFarmer - https://etherscan.io/address/0x39d9d569a44b8ceeb956664b9a26b361a9f6d685#code
 
+## Test
+Test instructions
+You must have Ganache and Truffle installed in your system, for this you can do:
+    npm install -g ganache-cli truffle
+
+To launch the tests you must follow two steps:
+<ol>
+	<li>Start Ganache wit the the instruction
+	    <strong>ganache-cli</strong>
+    </li>
+    <li>
+    In the root folder of the project execute the instruction
+    <strong>truffle test</strong>
+    </li>
+</ol>
+You can see the last report [here].
+
 ## License
 
 MIT License
+
+
+[here]: https://github.com/bamboo-defi/bamboodefi-core/blob/master/test/reports
