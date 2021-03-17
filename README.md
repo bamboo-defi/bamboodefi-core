@@ -16,7 +16,7 @@ https://bamboodefi.com.
 - BambooFarmer - https://etherscan.io/address/0x39d9d569a44b8ceeb956664b9a26b361a9f6d685#code
 
 ## Test
-Test instructions
+
 You must have Ganache and Truffle installed in your system, for this you can do:
     npm install -g ganache-cli truffle
 
