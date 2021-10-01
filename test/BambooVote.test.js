@@ -4,7 +4,7 @@ const ZooKeeper = artifacts.require('ZooKeeper.sol');
 const BVote = artifacts.require('token/BambooVote.sol')
 
 
-contract('BambooToken', ([alice, bob, carol]) => {
+contract('BambooToken', ([alice, bob, carol, dev]) => {
     beforeEach(async () => {
         this.bamboo = await BambooToken.new({ from: alice });
     });
@@ -15,7 +15,7 @@ contract('BambooToken', ([alice, bob, carol]) => {
         });
 
         it('should mint one vote per staking wallet', async () => {
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '0',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '0', dev, { from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             this.bv = await BVote.new('BambooVote', 'BVOTE', this.panda.address);

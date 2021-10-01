@@ -58,6 +58,11 @@ contract ZooKeeper is Ownable {
         //   4. User's `rewardDebt` gets updated.
     }
 
+    struct LpRegister {
+        uint256 id;                 // Pool Id saved in ZooKeeper
+        bool registered;            // Flag for checking if this address was added
+    }
+
     struct  BambooDeposit {
         uint256 amount;             // How many BAMBOO tokens the user has deposited.
         uint256 lockTime;           // Time in seconds that need to pass before this deposit can be withdrawn.
@@ -70,7 +75,7 @@ contract ZooKeeper is Ownable {
     struct BambooUserInfo {
         mapping(uint256 => BambooDeposit) deposits;    // Deposits from the user.
         uint256[] ids;                                  // Active deposits from the user.
-        uint256 totalAmount;                            // Total amount of active deposits from the user.
+        uint256 totalAmount;                            // Total amount of active deposits from the userEstamos teniendo una excepción de contrato debido a esto, de ahí mi pregunta. Realmente no hay problema, pero de ser así tendré que modificar alguna parte del contrato..
         uint256 lastDeposit;                            // Timestamp of last deposit from user
     }
 
@@ -98,12 +103,16 @@ contract ZooKeeper is Ownable {
     uint256 public bambooPerBlock;
     // The migrator contract. It has a lot of power. Can only be set through governance (owner).
     IMigratorKeeper public migrator;
+    // The bridge address
+    address public bridge;
     // The BambooField contract. If active, validates the lp staking for additional rewards.
     BambooField public bambooField;
     // If the BambooField is activated. Can be turned off by owner
     bool public isField;
     // Info of each pool.
     PoolInfo[] public poolInfo;
+    // Pool IDs
+    mapping(address => LpRegister) public getPool;
     // Info of each user that stakes LP tokens.
     mapping(uint256 => mapping (address => LpUserInfo)) public userInfo;
     // Info of the additional multipliers for BAMBOO staking
@@ -128,13 +137,15 @@ contract ZooKeeper is Ownable {
     event BAMBOOWithdraw(address indexed user, uint256 indexed pid, uint256 amount);
     event BAMBOOBonusWithdraw(address indexed user, uint256 indexed pid, uint256 amount, uint256 ndays);
     event EmergencyWithdraw(address indexed user, uint256 indexed pid, uint256 amount);
+    event BridgeTransfer(address indexed user, uint256 indexed amount);
+
 
     modifier onlyEOA() {
         require(msg.sender == tx.origin, "ZooKeeper: must use EOA");
         _;
     }
 
-    constructor(BambooToken _bamboo, uint256 _bambooPerBlock, uint256 _startBlock) {
+    constructor(BambooToken _bamboo, uint256 _bambooPerBlock, uint256 _startBlock, address _bridge) {
         require(_bambooPerBlock > 0, "invalid bamboo per block");
         bamboo = _bamboo;
         bambooPerBlock = _bambooPerBlock;
@@ -142,6 +153,7 @@ contract ZooKeeper is Ownable {
         for(uint i=0; i<TIME_REWARDS_LENGTH; i++) {
             validTimeRewards[timeRewards[i]] = true;
         }
+        bridge = _bridge;
     }
 
 
@@ -157,6 +169,7 @@ contract ZooKeeper is Ownable {
             lastRewardBlock: lastRewardBlock,
             accBambooPerShare: 0
         }));
+        getPool[address(_lpToken)] = LpRegister({id: poolInfo.length-1, registered: true});
     }
 
     // Update the given pool's BAMBOO allocation point. Can only be called by the owner.
@@ -181,6 +194,13 @@ contract ZooKeeper is Ownable {
         IERC20 newLpToken = migrator.migrate(lpToken);
         require(bal == newLpToken.balanceOf(address(this)), "migrate: bad");
         pool.lpToken = newLpToken;
+    }
+
+    // This function is called by the bridge watching the other chain.
+    function bridgeTransfer(address _user, uint256 _amount) public {
+        require(address(msg.sender) == bridge, "bridgeTransfer: invalid bridge address");
+        bamboo.mint(_user, _amount);
+        emit BridgeTransfer(_user, _amount);
     }
 
 
@@ -560,6 +580,11 @@ contract ZooKeeper is Ownable {
         bamboo.claimOwnership();
     }
 
+    // Propose ownership of bamboo
+    function proposeBambooOwner(address _owner) public onlyOwner {
+        bamboo.proposeOwner(_owner);
+    }
+
     // Update minYieldTime ans minStakeTime in seconds. If it's too big, would disable yield bonuses.
     function minYield(uint256 _yTime, uint256 _sTime) public onlyOwner {
         minYieldTime = _yTime;
@@ -570,5 +595,10 @@ contract ZooKeeper is Ownable {
     function changeBambooPerBlock(uint256 _bamboo) public onlyOwner {
         require(_bamboo > 0, "changeBambooPerBlock: invalid amount");
         bambooPerBlock = _bamboo;
+    }
+
+    // Change bridge address.
+    function changeBridge(address _bridge) public onlyOwner {
+        bridge = _bridge;
     }
 }

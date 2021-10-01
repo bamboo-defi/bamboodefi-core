@@ -13,8 +13,8 @@ contract('Migrator', ([alice, bob, dev, minter]) => {
         this.bamboo = await BambooToken.new({ from: alice });
         this.weth = await MockERC20.new('WETH', 'WETH', '100000000', { from: minter });
         this.token = await MockERC20.new('TOKEN', 'TOKEN', '100000000', { from: minter });
-        this.lp1 = await UniswapV2Pair.at((await this.factory1.createPair(this.weth.address, this.token.address, 3)).logs[0].args.pair);
-        this.keeper = await ZooKeeper.new(this.bamboo.address, '1000', '0', { from: alice });
+        this.lp1 = await UniswapV2Pair.at((await this.factory1.createPair(this.weth.address, this.token.address)).logs[0].args.pair);
+        this.keeper = await ZooKeeper.new(this.bamboo.address, '1000', '0', dev, { from: alice });
         this.migrator = await Migrator.new(this.keeper.address, this.factory1.address, this.factory2.address, '0');
         await this.bamboo.proposeOwner(this.keeper.address, {from:alice});
         await this.keeper.claimToken({from:alice});
@@ -36,7 +36,8 @@ contract('Migrator', ([alice, bob, dev, minter]) => {
         await expectRevert(this.keeper.migrate(0), 'migrate: no migrator');
         await this.keeper.setMigrator(this.migrator.address, { from: alice });
         await expectRevert(this.keeper.migrate(0), 'create pair first');
-        this.lp2 = await UniswapV2Pair.at((await this.factory2.createPair(this.weth.address, this.token.address, 4)).logs[0].args.pair);
+        this.lp2 = await UniswapV2Pair.at((await this.factory2.createPair(this.weth.address, this.token.address)).logs[0].args.pair);
+        await this.factory2.setFee(this.weth.address, this.token.address, 2);
         await expectRevert(this.keeper.migrate(0), 'respect fee');
         await this.factory2.setFee(this.weth.address, this.token.address, 3);
         await expectRevert(this.keeper.migrate(0), 'migrate: bad');
@@ -55,7 +56,7 @@ contract('Migrator', ([alice, bob, dev, minter]) => {
     it('should allow first minting from public only after migrator is gone', async () => {
         await this.factory2.setMigrator(this.migrator.address, { from: alice });
         this.tokenx = await MockERC20.new('TOKENX', 'TOKENX', '100000000', { from: minter });
-        this.lpx = await UniswapV2Pair.at((await this.factory2.createPair(this.weth.address, this.tokenx.address, 3)).logs[0].args.pair);
+        this.lpx = await UniswapV2Pair.at((await this.factory2.createPair(this.weth.address, this.tokenx.address)).logs[0].args.pair);
         await this.weth.transfer(this.lpx.address, '10000000', { from: minter });
         await this.tokenx.transfer(this.lpx.address, '500000', { from: minter });
         await expectRevert(this.lpx.mint(minter), 'Must not have migrator');

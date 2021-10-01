@@ -95,6 +95,9 @@ contract BambooFarmer {
 
     // Converts WETH to Bamboo
     function _toBAMBOO(uint256 amountIn) internal {
+        if(amountIn == 0) {
+            return;
+        }
         IUniswapV2Pair pair = IUniswapV2Pair(factory.getPair(weth, bamboo));
         // Choose WETH as input token
         (uint reserve0, uint reserve1,) = pair.getReserves();

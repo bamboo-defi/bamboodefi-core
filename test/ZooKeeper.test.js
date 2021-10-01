@@ -3,19 +3,21 @@ const BambooToken = artifacts.require('token/BambooToken.sol');
 const ZooKeeper = artifacts.require('ZooKeeper.sol');
 const MockERC20 = artifacts.require('token/MockToken.sol');
 
-contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
+contract('ZooKeeper', ([alice, bob, carol, dev, minter, bridge]) => {
     beforeEach(async () => {
         this.bamboo = await BambooToken.new({ from: alice });
     });
 
     it('should set correct state variables', async () => {
-        this.panda = await ZooKeeper.new(this.bamboo.address, '1000', '0', { from: alice });
+        this.panda = await ZooKeeper.new(this.bamboo.address, '1000', '0', bridge, { from: alice });
         await this.bamboo.proposeOwner(this.panda.address);
         await this.panda.claimToken();
         const bamboo = await this.panda.bamboo();
         const owner = await this.bamboo.owner();
         assert.equal(bamboo.toString(), this.bamboo.address);
         assert.equal(owner.toString(), this.panda.address);
+        assert.equal((await this.panda.bridge()).toString(), bridge);
+
     });
 
     context('With ERC/LP token added to the field', () => {
@@ -32,7 +34,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('should allow emergency withdraw', async () => {
             // 100 per block farming rate starting at block 100
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '100',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '100', bridge,{ from: alice });
             await this.panda.add('100', this.lp.address);
             await this.lp.approve(this.panda.address, '1000', { from: bob });
             await this.panda.deposit(0, '100', { from: bob });
@@ -43,7 +45,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('should give out BAMBOOs only after farming time', async () => {
             // 100 per block farming rate starting at block 100
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '100', { from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '100', bridge, { from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             await this.panda.add('100', this.lp.address);
@@ -70,7 +72,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('should not distribute BAMBOOs if no one deposit', async () => {
             // 100 per block farming rate starting at block 200
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '200',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '200', bridge,{ from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             await this.panda.add('100', this.lp.address);
@@ -95,7 +97,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('should distribute BAMBOOs properly for each staker', async () => {
             // 100 per block farming rate starting at block 300
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '300', { from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '300', bridge, { from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             await this.panda.add('100', this.lp.address);
@@ -157,7 +159,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('should give proper BAMBOOs allocation to each pool', async () => {
             // 100 per block farming rate starting at block 400
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '400', { from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '400', bridge, { from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             await this.lp.approve(this.panda.address, '1000', { from: alice });
@@ -192,7 +194,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('should mint additional bamboos when locked for staking', async () => {
             // 100 per block farming rate starting at block 500
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '500',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '500', bridge,{ from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             // Add a staking reward
@@ -220,7 +222,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
             // 100 per block farming rate starting at block 550
             await time.advanceBlockTo('548');
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '550',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '550', bridge,{ from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             // Add a staking reward of x2 at 1000 when staking for 30 days
@@ -275,7 +277,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
         });
         it('should handle multiple deposits independently', async () => {
             // 100 per block farming rate starting at block 650
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '650',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '650', bridge,{ from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             // Add a staking reward
@@ -323,7 +325,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
 
         it('yield farming should have a multiplier if some bamboo is locked', async () => {
             // 100 per block farming rate starting at block 700
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '700',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '700', bridge,{ from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
             await this.panda.add('100', this.lp.address);
@@ -354,7 +356,7 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
         });
         it('should add multiple deposits and determine the closest reward available', async () => {
             // 100 per block farming rate starting at block 800
-            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '800',{ from: alice });
+            this.panda = await ZooKeeper.new(this.bamboo.address, '100', '800', bridge,{ from: alice });
             await this.panda.minYield(0, 0, { from: alice });
             await this.bamboo.proposeOwner(this.panda.address);
             await this.panda.claimToken();
@@ -439,5 +441,28 @@ contract('ZooKeeper', ([alice, bob, carol, dev, minter]) => {
             assert.equal((await this.panda.pendingBamboo(0, bob)).toString(), '314');
             assert.equal((await this.panda.pendingBamboo(0, carol)).toString(), '1131');
         });
+    });
+    it('should allow the bridge and only the bridge to request a mint', async () => {
+        // 100 per block farming rate starting at block 900
+        this.panda = await ZooKeeper.new(this.bamboo.address, '100', '900', bridge,{ from: alice });
+        await this.bamboo.proposeOwner(this.panda.address);
+        await this.panda.claimToken();
+        await this.panda.bridgeTransfer(bob, '100', {from: bridge});
+        assert.equal((await this.bamboo.balanceOf(bob)).toString(), '100');
+        await expectRevert(this.panda.bridgeTransfer(bob, '100', { from: alice }), 'bridgeTransfer: invalid bridge address');
+        // change the bridge address
+        await this.panda.changeBridge(carol, {from: alice});
+        await expectRevert(this.panda.bridgeTransfer(bob, '100', { from: bridge }), 'bridgeTransfer: invalid bridge address');
+        await this.panda.bridgeTransfer(bob, '100', {from: carol});
+        assert.equal((await this.bamboo.balanceOf(bob)).toString(), '200');
+    });
+    it('should allow zookeeper to transfer ownership of bambooo', async () => {
+        this.panda = await ZooKeeper.new(this.bamboo.address, '100', '950', bridge,{ from: alice });
+        await this.bamboo.proposeOwner(this.panda.address);
+        await this.panda.claimToken();
+        assert.equal((await this.bamboo.owner()).toString(), this.panda.address);
+        await this.panda.proposeBambooOwner(dev, {from: alice});
+        await this.bamboo.claimOwnership({from: dev});
+        assert.equal((await this.bamboo.owner()).toString(), dev);
     });
 });
