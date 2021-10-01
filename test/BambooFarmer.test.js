@@ -13,10 +13,10 @@ contract('BambooFarmer', ([alice, field, minter, dev, vault]) => {
         this.token1 = await MockERC20.new('TOKEN1', 'TOKEN', '100000000', { from: minter });
         this.token2 = await MockERC20.new('TOKEN2', 'TOKEN2', '100000000', { from: minter });
         this.farmer = await BambooFarmer.new(this.factory.address, field, this.bamboo.address, this.weth.address, dev);
-        this.bambooWETH = await UniswapV2Pair.at((await this.factory.createPair(this.weth.address, this.bamboo.address, 3)).logs[0].args.pair);
-        this.wethToken1 = await UniswapV2Pair.at((await this.factory.createPair(this.weth.address, this.token1.address, 3)).logs[0].args.pair);
-        this.wethToken2 = await UniswapV2Pair.at((await this.factory.createPair(this.weth.address, this.token2.address, 3)).logs[0].args.pair);
-        this.token1Token2 = await UniswapV2Pair.at((await this.factory.createPair(this.token1.address, this.token2.address, 3)).logs[0].args.pair);
+        this.bambooWETH = await UniswapV2Pair.at((await this.factory.createPair(this.weth.address, this.bamboo.address)).logs[0].args.pair);
+        this.wethToken1 = await UniswapV2Pair.at((await this.factory.createPair(this.weth.address, this.token1.address)).logs[0].args.pair);
+        this.wethToken2 = await UniswapV2Pair.at((await this.factory.createPair(this.weth.address, this.token2.address)).logs[0].args.pair);
+        this.token1Token2 = await UniswapV2Pair.at((await this.factory.createPair(this.token1.address, this.token2.address)).logs[0].args.pair);
     });
 
     it('should make BAMBOOs successfully', async () => {

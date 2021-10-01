@@ -8,7 +8,7 @@ const MockERC20 = artifacts.require('token/MockToken.sol');
 contract('BambooField', ([alice, bob, carol, dev]) => {
     beforeEach(async () => {
         this.bamboo = await BambooToken.new({ from: dev });
-        this.keeper = await ZooKeeper.new(this.bamboo.address, '1', '0', { from: dev });
+        this.keeper = await ZooKeeper.new(this.bamboo.address, '1', '0', dev, { from: dev });
         // Create a BambooField with an entry price of 10 BAMBOO and a min stake time of 7 days
         this.field = await BambooField.new(this.bamboo.address, this.keeper.address, '10', '604800', { from: dev });
         this.lp = await MockERC20.new('LPToken', 'LP', '10000000000', { from: dev });
